@@ -5,10 +5,28 @@
         <small class="font-bold">Get videos and photos from Facebook</small>
     </div>
     <div class="modal-body">
-        <p><strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.</p>
-        <div class="form-group"><label>Sample Input</label> <input type="email" placeholder="Enter your email" class="form-control"></div>
+    	<div class="row">
+	    	<div class="col-xs-12" style="padding-right: 0px;">
+		        <div ng-click="loadPhotos(item.id, $index)" class="file-box" ng-repeat="item in albumList track by $index">
+				    <div class="file">
+				        <a href="">
+				            <span class="corner"></span>
+				            <div ng-if="!item.coverPhoto" class="icon">
+				                <i class="fa fa-folder"></i>
+				            </div>
+				            <div ng-if="item.coverPhoto" class="image">
+				                <img alt="image" class="img-responsive" ng-src="{{item.coverPhoto}}">
+				            </div>
+				            <div class="file-name">
+				                {{item.name}}
+				                <br>
+				                <small ng-if="item.createdTime">Created: {{item.createdTime}}</small>
+				            </div>
+				        </a>
+				    </div>
+				</div>
+			</div>
+		</div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-white" ng-click="close()">Close</button>

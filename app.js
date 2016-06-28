@@ -54,7 +54,7 @@ angular.module('myApp', ['ui.router', 'ui.bootstrap'])
 
 }])
 
-.directive('facebookSelector', ['$uibModal', function ($uibModal) {
+.directive('facebookSelector', ['$uibModal', 'facebookService', function ($uibModal, facebookService) {
     return {
         restrict: 'A',
         scope: {
@@ -65,15 +65,17 @@ angular.module('myApp', ['ui.router', 'ui.bootstrap'])
             // Loading
             element.unbind('click');
             element.bind('click', function (e) {
-                FB.getLoginStatus(function(response) {
-                    checkLogin();
-                });
+                checkLogin();
             });
 
             // Facebook login status
             function checkLogin() {
                 FB.login(function (response) {
-                    if (response.authResponse) { // Loged in
+                    if (response.authResponse && response.authResponse.accessToken) { // Loged in
+                        // Set token
+                        facebookService.setToken(response.authResponse.accessToken);
+
+                        // Open selector
                         openModal(); 
                     }
                 }, {scope:'user_photos, user_videos'});
@@ -84,19 +86,53 @@ angular.module('myApp', ['ui.router', 'ui.bootstrap'])
                 var modalInstance = $uibModal.open({
                     templateUrl: './templates/facebook_selector.html',
                     size: 'md',
-                    controller: ['$scope', '$rootScope', '$uibModalInstance', 'facebookService',
-                    function ($scope, $rootScope, $uibModalInstance, facebookService) {
+                    controller: ['$scope', '$rootScope', '$uibModalInstance', 'facebookService', function ($scope, $rootScope, $uibModalInstance, facebookService) {
                         mine = $scope;
+
+                        /**
+                         * Variables
+                         */
+                        $scope.albumList = [];
+                        $scope.photoList = [];
 
                         /**
                          * Functions
                          */
                         // Load all albums
-                        function loadAlbums () {
-                            facebookService.getAlbums().then(function (res) {
-                                console.log(res);
+                        function loadAlbums() {
+                            facebookService.getAlbums().success(function (res) {
+                                if (res.data) {
+                                    $scope.albumList = res.data;
+
+                                    // Format created_date and get cover photo of each folder
+                                    for (var i = 0, length = $scope.albumList.length; i < length; i++) {
+                                        // Created date
+                                        var t = new Date($scope.albumList[i].created_time);
+                                        $scope.albumList[i].createdTime = t.toDateString();
+
+                                        // Get cover photo
+                                        if ($scope.albumList[i].cover_photo && $scope.albumList[i].cover_photo.id) {
+                                            $scope.albumList[i].coverPhoto = facebookService.getPictureLink($scope.albumList[i].cover_photo.id);
+                                        }
+                                    }
+
+                                    // Add Videos folder
+                                    $scope.albumList.push({ id: 'video', name: 'Videos' });
+                                }
                             });
                         }
+
+                        // Load photos from album
+                        $scope.loadPhotos = function (albumId, $index) {
+                            facebookService.getPhotosFromAlbum(albumId).success(function (res) {
+                                $scope.photoList = res.data;
+
+                                // Get photo links
+                                for (var i = 0, length = $scope.photoList.length; i < length; i++) {
+                                    $scope.photoList[i].photoUrl = facebookService.getPictureLink($scope.photoList[i].id);;
+                                }
+                            });
+                        };
 
                         // Close modal
                         $scope.close = function () {
@@ -115,9 +151,24 @@ angular.module('myApp', ['ui.router', 'ui.bootstrap'])
 }])
 
 .service('facebookService', ['$http', function ($http) {
+    var accessToken = '';
+
+    this.setToken = function (_accessToken) {
+        this.accessToken = _accessToken;
+    };
 
     this.getAlbums = function () {
-        return $http.get('https://graph.facebook.com/v2.6/me/albums');
+        var url = 'https://graph.facebook.com/v2.6/me/albums?fields=cover_photo,name,created_time&&access_token=' + this.accessToken;
+        return $http.get(url);
+    };
+
+    this.getPictureLink = function (photoId) {
+        return 'https://graph.facebook.com/v2.6/' + photoId + '/picture?access_token=' + this.accessToken;
+    };
+
+    this.getPhotosFromAlbum = function (albumId) {
+        var url = 'https://graph.facebook.com/v2.6/' + albumId + '/photos?access_token=' + this.accessToken;
+        return $http.get(url);
     };
 
 }]);

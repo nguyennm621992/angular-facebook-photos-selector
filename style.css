@@ -61,3 +61,65 @@ h3, h4, h5 {
 .text-facebook {
     color: #3b5998!important;
 }
+
+.file-box {
+    float: left;
+    width: 184px;
+}
+
+.file {
+    border: 1px solid #e7eaec;
+    padding: 0;
+    background-color: #ffffff;
+    position: relative;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.corner {
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: 0.6em solid transparent;
+    border-right: 0.6em solid #f1f1f1;
+    border-bottom: 0.6em solid #f1f1f1;
+    right: 0em;
+    bottom: 0em;
+}
+
+.file .icon {
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.file .icon, .file .image {
+    height: 100px;
+    overflow: hidden;
+}
+
+.file .file-name {
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #e7eaec;
+}
+
+.file-name small {
+    color: #676a6c;
+}
+
+.file .icon i {
+    font-size: 70px;
+    color: #dadada;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+}
+
+
+
+
+
+
