@@ -1,0 +1,30 @@
+{
+  "name": "facebook-photos-selector",
+  "authors": [
+    "Nguyen Ngo"
+  ],
+  "description": "A simple Facebook photos selector",
+  "main": "app.js",
+  "keywords": [
+    "facebook",
+    "photos",
+    "selector",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "angular-route": "^1.5.7",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.3.3"
+  }
+}
