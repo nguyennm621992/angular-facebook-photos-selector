@@ -3,8 +3,6 @@
  * Copyright 2015 Webapplayers.com
  *
  */
-var mine = '';
-
 angular.module('myApp', ['ui.router', 'ui.bootstrap'])
 
 .run(['$rootScope', '$window', function ($rootScope, $window) {
@@ -56,7 +54,6 @@ angular.module('myApp', ['ui.router', 'ui.bootstrap'])
 }])
 
 .controller('myCtrl', ['$rootScope', '$scope', 'facebookService', function ($rootScope, $scope, facebookService) {
-    mine = $scope;
     $scope.mediaList = {};
 }])
 
