@@ -8,12 +8,12 @@ body {
 }
 
 .inmodal .modal-header {
-    padding: 30px 15px;
+    padding: 20px 15px;
     text-align: center;
 }
 
 .inmodal .modal-icon {
-    font-size: 84px;
+    font-size: 60px;
     color: #e2e3e3;
 }
 
@@ -118,6 +118,66 @@ a:hover, a:focus {
     text-decoration: none;
 }
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary.active:hover, .btn-primary.active:focus {
+    background-color: #18a689;
+    border-color: #18a689;
+    color: #FFFFFF;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success, .btn-success:active:focus, .btn-success:active:hover, .btn-success.active:hover, .btn-success.active:focus {
+    background-color: #1a7bb9;
+    border-color: #1a7bb9;
+    color: #FFFFFF;
+}
+
+.btn-success {
+    background-color: #1c84c6;
+    border-color: #1c84c6;
+    color: #FFFFFF;
+}
+
+.btn-gray {
+    background: #b4b8bb;
+    color: #ffffff;
+}
+
+.btn-gray:hover, .btn-gray:focus, .btn-gray:active, .btn-gray.active, .open .dropdown-toggle.btn-success, .btn-gray:active:focus, .btn-gray:active:hover, .btn-gray.active:hover, .btn-gray.active:focus {
+    color: #FFFFFF;
+    background: #838689;
+}
+
+.btn-circle {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%!important;
+    padding: 6px 0;
+    text-align: center;
+    font-size: 13px;
+    line-height: 0.428571429;
+}
+
+button, button:focus, .btn, .btn:focus {
+	outline: none;
+}
+
+.border-green {
+    border: 1px solid #1ab394;
+}
+
+.pagination {
+	margin: 0px;
+}
+
+.el-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
 
 
 

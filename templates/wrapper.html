@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="col-xs-12 text-center" style="margin-top: 100px;">
+		<button facebook-selector="mediaList" class="btn btn-primary">Facebook Photos</button>
+	</div>
+	<div class="col-xs-12" style="margin-top: 40px;">
+        <div class="file-box" ng-repeat="item in mediaList track by $index">
+		    <div class="file">
+		        <a href="" ng-href="{{item.isType == 'video' ? item.source : item.images[0] ? item.images[0].source : item.thumbnail}}" target="_blank">
+		            <span class="corner"></span>
+		            <div class="image" style="position: relative; height: auto;">
+		                <img alt="image" class="img-responsive" ng-src="{{item.thumbnail}}">
+	                	<span ng-if="item.isType == 'video'" class="el-center" style="font-size: 35px; color: #ffffff;">
+	                		<i class="fa fa-play-circle" aria-hidden="true"></i>
+                		</span>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+	</div>
+</div>

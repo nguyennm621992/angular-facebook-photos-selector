@@ -4,10 +4,10 @@
         <h4 class="modal-title">Facebook Selector</h4>
         <small class="font-bold">Get videos and photos from Facebook</small>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" style="max-height: 410px; overflow: auto;" scroll-on-element="loadMoreMedia()">
     	<div class="row">
-	    	<div class="col-xs-12" style="padding-right: 0px;">
-		        <div ng-click="loadPhotos(item.id, $index)" class="file-box" ng-repeat="item in albumList track by $index">
+	    	<div ng-if="curState == _state.album" class="col-xs-12" style="padding-right: 0px;">
+		        <div ng-click="goPhotoState(item.id, (albumPaging.curPage-1)*albumPaging.limit + $index)" class="file-box" ng-repeat="item in filtered = albumList | startFrom:(albumPaging.curPage-1)*albumPaging.limit | limitTo:albumPaging.limit">
 				    <div class="file">
 				        <a href="">
 				            <span class="corner"></span>
@@ -26,10 +26,40 @@
 				    </div>
 				</div>
 			</div>
+			<div ng-if="curState == _state.media" class="col-xs-12" style="padding-right: 0px;">
+		        <div ng-click="selectMedia($index)" class="file-box" ng-repeat="item in mediaList track by $index">
+				    <div class="file" ng-class="{'border-green': item.isSelect}">
+				        <a href="">
+				            <span class="corner"></span>
+				            <div class="image" style="position: relative;">
+				                <img alt="image" class="img-responsive" ng-src="{{item.thumbnail}}">
+			                	<span ng-if="item.isType == 'video'" class="el-center" style="font-size: 35px; color: #ffffff; height: 35px;">
+			                		<i class="fa fa-play-circle" aria-hidden="true"></i>
+		                		</span>
+				            </div>
+				            <div class="file-name text-right">
+				            	<button ng-class="{'btn-gray': !item.isSelect, 'btn-primary': item.isSelect}" class="btn btn-circle btn-gray"><i class="fa fa-check"></i></button>
+				            </div>
+				        </a>
+				    </div>
+				</div>
+			</div>
 		</div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-white" ng-click="close()">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="ok()">Save changes</button>
+    	<!-- Album state -->
+    	<div ng-if="curState == _state.album" class="col-xs-6 text-left">
+    		<uib-pagination ng-model="albumPaging.curPage" max-size="albumPaging.numOfPages" total-items="albumPaging.total" items-per-page="albumPaging.limit"></uib-pagination>
+    	</div>
+    	<div ng-if="curState == _state.album" class="col-xs-6">
+    		<button type="button" class="btn btn-white" ng-click="close()">Close</button>
+    	</div>
+    	<!-- Media state -->
+    	<div ng-if="curState == _state.media" class="col-xs-12">
+	        <button type="button" class="btn btn-danger pull-left" ng-click="goAlbumState()"><i class="fa fa-chevron-left"></i> Album</button>
+	        <button ng-if="selectedList.length > 0" type="button" class="btn btn-primary" ng-click="finish()">Finish</button>
+	        <button type="button" class="btn btn-primary" ng-click="selectAll()">Select All Visibles</button>
+	        <button type="button" class="btn btn-white" ng-click="close()">Close</button>
+        </div>
     </div>
 </div>
