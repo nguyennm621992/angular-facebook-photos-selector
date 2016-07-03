@@ -12,11 +12,7 @@
 		<script src="https://use.fontawesome.com/124671c5f2.js"></script>
 	</head>
 	<body>
-		<div class="container">
-			<div class="col-xs-12 text-center" style="margin-top: 100px;">
-				<button facebook-selector class="btn btn-primary">Facebook Photos</button>
-			</div>
-		</div>
+		<div  ui-view="wrapper"></div>
 
 		<!-- Javascript -->
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
