@@ -10,7 +10,7 @@ angular.module('myApp', ['ui.router', 'ui.bootstrap'])
     $window.fbAsyncInit = function() {
         // Executed when the SDK is loaded
         FB.init({ 
-            appId: '1031527436931737',
+            appId: '902942446455561',
             /* 
                Set if you want to check the authentication status
                at the start up of the app 
